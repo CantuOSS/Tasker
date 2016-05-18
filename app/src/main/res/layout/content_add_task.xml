@@ -18,11 +18,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/add_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:hint="Task name"
-        android:layout_toEndOf="@+id/switch1"
+        android:layout_toEndOf="@+id/add_remind_sw"
         android:lines="1" />
 
     <EditText
@@ -30,11 +30,11 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/add_date"
         android:focusable="false"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
+        android:layout_below="@+id/add_name"
+        android:layout_alignStart="@+id/add_name"
+        android:layout_alignEnd="@+id/add_name"
         android:hint="Date" />
 
     <EditText
@@ -42,10 +42,10 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_below="@+id/editText2"
+        android:id="@+id/add_desc"
+        android:layout_below="@+id/add_date"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText"
+        android:layout_alignEnd="@+id/add_name"
         android:lines="10"
         android:hint="Task description"
         android:maxLines="10" />
@@ -54,26 +54,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remind me"
-        android:id="@+id/switch1"
-        android:layout_below="@+id/editText3"
+        android:id="@+id/add_remind_sw"
+        android:layout_below="@+id/add_desc"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_below="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3"
-        android:layout_toEndOf="@+id/switch1" />
+        android:id="@+id/add_remind_period"
+        android:layout_below="@+id/add_desc"
+        android:layout_alignEnd="@+id/add_desc"
+        android:layout_toEndOf="@+id/add_remind_sw" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/editText3"
+        android:layout_above="@+id/add_desc"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/switch1"
+        android:layout_alignEnd="@+id/add_remind_sw"
         android:src="@android:drawable/sym_def_app_icon" />
     </RelativeLayout>
 </ScrollView>

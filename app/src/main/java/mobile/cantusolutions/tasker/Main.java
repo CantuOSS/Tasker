@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,27 +21,25 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Main extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+
+    Task tasks;
+
+    public void updateTasksView(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,13 +60,16 @@ public class Main extends AppCompatActivity {
             public void onClick(View view) {
                 int num = mViewPager.getCurrentItem();
                 if (num == 0){
-                    Snackbar.make(view, "Create task", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    /*Snackbar.make(view, "Create task", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
                     Intent intento = new Intent(mViewPager.getContext(), AddTask.class);
-                    startActivity(intento);
+                    int rc = 1;
+                    startActivityForResult(intento, rc);
                 } else if (num == 1){
-                    Snackbar.make(view, "Create category", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    /*Snackbar.make(view, "Create category", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
+                    Intent intento = new Intent(mViewPager.getContext(), AddCategory.class);
+                    startActivity(intento);
                 }
             }
         });
@@ -94,6 +96,12 @@ public class Main extends AppCompatActivity {
 
 
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            tasks.upd();
+        }
     }
 
 
@@ -135,7 +143,8 @@ public class Main extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0){
-                return Task.newInstance(position + 1);
+                tasks = Task.newInstance(position + 1);
+                return tasks;
             }
             else if (position == 1){
                 return Categories.newInstance(position + 1);

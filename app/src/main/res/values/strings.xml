@@ -15,5 +15,6 @@
         <item>Weelky</item>
         <item>Monthly </item>
     </string-array>
+    <string name="title_activity_add_category">Add a category</string>
 
 </resources>

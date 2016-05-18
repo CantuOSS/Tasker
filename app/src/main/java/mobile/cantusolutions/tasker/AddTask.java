@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +23,9 @@ public class AddTask extends AppCompatActivity {
     int mYear;
     int mMonth;
     int mDay;
+    EditText name, date, desc;
+    Switch remind;
+    Spinner frequency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +34,37 @@ public class AddTask extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        name = (EditText) findViewById(R.id.add_name);
+        date = (EditText) findViewById(R.id.add_date);
+        desc = (EditText) findViewById(R.id.add_desc);
+        remind = (Switch) findViewById(R.id.add_remind_sw);
+        frequency = (Spinner) findViewById(R.id.add_remind_period);
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Adding task...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                String tname = name.getText().toString();
+                String tdate = date.getText().toString();
+                String tdesc = desc.getText().toString();
+                boolean isremind = remind.isActivated();
+                int tfreq = frequency.getSelectedItemPosition();
+
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(view.getContext());
+                databaseAccess.open();
+                Task_element te = new Task_element(tname, tdesc, tdate, tfreq, 0, 1);
+                databaseAccess.addTask(te);
+                databaseAccess.close();
+
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText yourEditText = (EditText) findViewById(R.id.editText2);
+        final EditText yourEditText = (EditText) findViewById(R.id.add_date);
         yourEditText.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -71,7 +96,7 @@ public class AddTask extends AppCompatActivity {
             }
         });
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.add_remind_period);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.lista_recordatorios, android.R.layout.simple_spinner_item);
